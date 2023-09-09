@@ -1,0 +1,22 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.grid-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	align-items: center;
+}
+
+.row {
+	display: flex;
+}
+
+.tile {
+	width: 5vh;
+	height: 5vh;
+	border: 2px solid black;
+}
