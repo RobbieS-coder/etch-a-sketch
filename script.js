@@ -9,6 +9,9 @@ function initialiseGrid() {
 			const tile = document.createElement("div");
 			tile.classList.add("tile");
 			row.appendChild(tile);
+			tile.addEventListener("mouseenter", (e) => {
+				e.target.classList.add("hovered");
+			})
 		}
 
 		gridContainer.appendChild(row);
