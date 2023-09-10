@@ -18,6 +18,19 @@ function initialiseGrid(gridDimensions) {
 
 		gridContainer.appendChild(row);
 	}
+
+	const tiles = document.querySelectorAll(".tile");
+	if (gridDimensions > 60) {
+		tiles.forEach(tile => {
+			tile.style.border = "1px solid black";
+			gridContainer.style.border = "1px solid black";
+		});
+	} else {
+		tiles.forEach(tile => {
+			tile.style.border = "2px solid black";
+			gridContainer.style.border = "2px solid black";
+		});
+	}
 }
 
 function addButtonEventListeners () {
