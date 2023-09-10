@@ -22,9 +22,14 @@ function initialiseGrid(gridDimensions) {
 
 function addButtonEventListeners () {
 	gridSizeButton = document.querySelector(".grid-size");
+	resetButton = document.querySelector(".reset");
 
 	gridSizeButton.addEventListener("click", () => {
 		changeGridSize();
+	})
+
+	resetButton.addEventListener("click", () => {
+		resetGrid();
 	})
 }
 
@@ -57,6 +62,12 @@ function testValidity(newDimension) {
 	Number.isInteger(parseInt(newDimension, 10));
 }
 
+function resetGrid() {
+	const tiles = document.querySelectorAll(".tile");
+	tiles.forEach(tile => {
+		tile.classList.remove("hovered");
+	});
+}
 
 initialiseGrid(16);
 addButtonEventListeners();

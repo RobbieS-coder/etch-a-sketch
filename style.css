@@ -12,6 +12,9 @@ html, body {
 }
 
 .buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	margin: auto 0;
 }
 
