@@ -16,8 +16,6 @@ function initialiseGrid(gridDimensions) {
 
 		gridContainer.appendChild(row);
 	}
-
-	addButtonEventListeners();
 }
 
 function addButtonEventListeners () {
@@ -40,3 +38,4 @@ function changeGridSize() {
 }
 
 initialiseGrid(16);
+addButtonEventListeners();
