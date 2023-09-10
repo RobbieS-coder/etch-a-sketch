@@ -1,4 +1,4 @@
-let gridSize;
+let gridSize = 16;
 
 function initialiseGrid(gridDimensions) {
 	const gridContainer = document.querySelector(".grid-container");
@@ -34,7 +34,7 @@ function addButtonEventListeners () {
 }
 
 function changeGridSize() {
-	let newDimension = prompt("What do you want the new grid size to be?");
+	let newDimension = prompt(`What do you want the new grid size to be?\nThe max grid size is 100.\nCurrent grid size: ${gridSize}x${gridSize}`);
 
 	if (newDimension === null) {
 		return;
@@ -43,11 +43,12 @@ function changeGridSize() {
 	while (!testValidity(newDimension)) {
 		newDimension = prompt(`${newDimension} is not valid. Please enter an integer.`);;
 		if (newDimension === null) {
-				return;
+			return;
 		}
 	}
 	
 	gridSize = parseInt(newDimension, 10);
+	gridSize = Math.min(gridSize, 100);
 
 	const rows = document.querySelectorAll(".row");
 	rows.forEach(row => {
@@ -69,5 +70,5 @@ function resetGrid() {
 	});
 }
 
-initialiseGrid(16);
+initialiseGrid(gridSize);
 addButtonEventListeners();
