@@ -1,3 +1,5 @@
+let gridSize;
+
 function initialiseGrid(gridDimensions) {
 	const gridContainer = document.querySelector(".grid-container");
 
@@ -27,15 +29,34 @@ function addButtonEventListeners () {
 }
 
 function changeGridSize() {
-	const newDimension = prompt("What do you want the new grid size to be?");
+	let newDimension = prompt("What do you want the new grid size to be?");
+
+	if (newDimension === null) {
+		return;
+	}
+
+	while (!testValidity(newDimension)) {
+		newDimension = prompt(`${newDimension} is not valid. Please enter an integer.`);;
+		if (newDimension === null) {
+				return;
+		}
+	}
+	
+	gridSize = parseInt(newDimension, 10);
 
 	const rows = document.querySelectorAll(".row");
 	rows.forEach(row => {
 		row.remove();
 	});
 	
-	initialiseGrid(newDimension);
+	initialiseGrid(gridSize);
 }
+
+function testValidity(newDimension) {
+	return newDimension !== undefined &&
+	Number.isInteger(parseInt(newDimension, 10));
+}
+
 
 initialiseGrid(16);
 addButtonEventListeners();
