@@ -1,4 +1,5 @@
 let gridSize = 16;
+let currentColor = "black";
 
 function initialiseGrid(gridDimensions) {
 	const gridContainer = document.querySelector(".grid-container");
@@ -12,7 +13,7 @@ function initialiseGrid(gridDimensions) {
 			tile.classList.add("tile");
 			row.appendChild(tile);
 			tile.addEventListener("mouseenter", (e) => {
-				e.target.classList.add("hovered");
+				e.target.style.backgroundColor = currentColor;
 			});
 		}
 
@@ -33,9 +34,10 @@ function initialiseGrid(gridDimensions) {
 	}
 }
 
-function addButtonEventListeners () {
+function addButtonEventListeners() {
 	gridSizeButton = document.querySelector(".grid-size");
 	resetButton = document.querySelector(".reset");
+	changeColourButton = document.querySelector(".change-colour");
 
 	gridSizeButton.addEventListener("click", () => {
 		changeGridSize();
@@ -43,6 +45,10 @@ function addButtonEventListeners () {
 
 	resetButton.addEventListener("click", () => {
 		resetGrid();
+	})
+
+	changeColourButton.addEventListener("click", () => {
+		changeColour();
 	})
 }
 
@@ -53,33 +59,56 @@ function changeGridSize() {
 		return;
 	}
 
-	while (!testValidity(newDimension)) {
-		newDimension = prompt(`${newDimension} is not valid. Please enter an integer.`);;
+	while (!testDimensionValidity(newDimension)) {
+		newDimension = prompt(`${newDimension} is not valid. Please enter an integer.`);
 		if (newDimension === null) {
 			return;
 		}
 	}
-	
+
 	gridSize = parseInt(newDimension, 10);
-	gridSize = Math.min(gridSize, 100);
+	gridSize = Math.min(gridSize, 10000);
 
 	const rows = document.querySelectorAll(".row");
 	rows.forEach(row => {
 		row.remove();
 	});
-	
+
 	initialiseGrid(gridSize);
 }
 
-function testValidity(newDimension) {
+function changeColour() {
+	let newColour = prompt(`What do you want the colour to be? It must be a valid colour.`);
+
+	if (newColour === null) {
+		return;
+	}
+
+	while (!testColourValidity(newColour)) {
+		newColour = prompt(`${newColour} is not valid. Please enter an valid colour.`);
+		if (newColour === null) {
+			return;
+		}
+	}
+
+	currentColor = newColour;
+}
+
+function testDimensionValidity(newDimension) {
 	return newDimension !== undefined &&
-	Number.isInteger(parseInt(newDimension, 10));
+		Number.isInteger(parseInt(newDimension, 10));
+}
+
+function testColourValidity(newColour) {
+	const span = document.createElement("span");
+	span.style.color = newColour;
+	return span.style.color !== "";
 }
 
 function resetGrid() {
 	const tiles = document.querySelectorAll(".tile");
 	tiles.forEach(tile => {
-		tile.classList.remove("hovered");
+		tile.style.backgroundColor = "white";
 	});
 }
 
