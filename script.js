@@ -66,8 +66,7 @@ function changeGridSize() {
 		}
 	}
 
-	gridSize = parseInt(newDimension, 10);
-	gridSize = Math.min(gridSize, 10000);
+	gridSize = Math.min(parseInt(newDimension), 100);
 
 	const rows = document.querySelectorAll(".row");
 	rows.forEach(row => {
@@ -78,7 +77,7 @@ function changeGridSize() {
 }
 
 function changeColour() {
-	let newColour = prompt(`What do you want the colour to be? It must be a valid colour.`);
+	let newColour = prompt("What do you want the colour to be? It must be a valid colour such as a colour keyword, hex or rgb.\ne.g. red, #ff0000 or rgb(256, 0, 0)");
 
 	if (newColour === null) {
 		return;
