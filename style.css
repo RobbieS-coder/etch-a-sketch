@@ -19,6 +19,10 @@ body {
 	margin: auto 0;
 }
 
+.active {
+	background-color: grey;
+}
+
 .grid-container {
 	display: flex;
 	flex-direction: column;

@@ -1,5 +1,7 @@
 let gridSize = 16;
-let currentColor = "black";
+let previousColour = "";
+let currentColour = "black";
+let isEraserActive = false;
 
 function initialiseGrid(gridDimensions) {
 	const gridContainer = document.querySelector(".grid-container");
@@ -13,7 +15,7 @@ function initialiseGrid(gridDimensions) {
 			tile.classList.add("tile");
 			row.appendChild(tile);
 			tile.addEventListener("mouseenter", (e) => {
-				e.target.style.backgroundColor = currentColor;
+				e.target.style.backgroundColor = currentColour;
 			});
 		}
 
@@ -38,21 +40,30 @@ function addButtonEventListeners() {
 	gridSizeButton = document.querySelector(".grid-size");
 	resetButton = document.querySelector(".reset");
 	changeColourButton = document.querySelector(".change-colour");
+	eraserButton = document.querySelector(".eraser");
 
 	gridSizeButton.addEventListener("click", () => {
 		changeGridSize();
-	})
+	});
 
 	resetButton.addEventListener("click", () => {
 		resetGrid();
-	})
+	});
 
 	changeColourButton.addEventListener("click", () => {
 		changeColour();
-	})
+	});
+
+	eraserButton.addEventListener("click", () => {
+		toggleEraser();
+	});
 }
 
 function changeGridSize() {
+	if (isEraserActive === true) {
+		toggleEraser();
+	}
+
 	let newDimension = prompt(`What do you want the new grid size to be?\nThe max grid size is 100.\nCurrent grid size: ${gridSize}x${gridSize}`);
 
 	if (newDimension === null) {
@@ -77,6 +88,10 @@ function changeGridSize() {
 }
 
 function changeColour() {
+	if (isEraserActive === true) {
+		toggleEraser();
+	}
+
 	let newColour = prompt("What do you want the colour to be? It must be a valid colour such as a colour keyword, hex or rgb.\ne.g. red, #ff0000 or rgb(256, 0, 0)");
 
 	if (newColour === null) {
@@ -90,7 +105,7 @@ function changeColour() {
 		}
 	}
 
-	currentColor = newColour;
+	currentColour = newColour;
 }
 
 function testDimensionValidity(newDimension) {
@@ -105,10 +120,26 @@ function testColourValidity(newColour) {
 }
 
 function resetGrid() {
+	if (isEraserActive === true) {
+		toggleEraser();
+	}
+
 	const tiles = document.querySelectorAll(".tile");
 	tiles.forEach(tile => {
 		tile.style.backgroundColor = "white";
 	});
+}
+
+function toggleEraser() {
+	isEraserActive = !isEraserActive;
+	eraserButton.classList.toggle("active");
+
+	if (isEraserActive) {
+		previousColour = currentColour
+		currentColour = "white";
+	} else {
+		currentColour = previousColour;
+	}
 }
 
 initialiseGrid(gridSize);
