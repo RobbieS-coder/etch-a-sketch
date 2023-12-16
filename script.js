@@ -2,9 +2,12 @@ let gridSize = 16;
 let previousColour = "";
 let currentColour = "black";
 let isEraserActive = false;
+let eraserButton;
 
 function initialiseGrid(gridDimensions) {
 	const gridContainer = document.querySelector(".grid-container");
+
+	let isMouseDown = false;
 
 	for (let i = 0; i < gridDimensions; i++) {
 		const row = document.createElement("div");
@@ -15,7 +18,9 @@ function initialiseGrid(gridDimensions) {
 			tile.classList.add("tile");
 			row.appendChild(tile);
 			tile.addEventListener("mouseenter", (e) => {
-				e.target.style.backgroundColor = currentColour;
+				if (isMouseDown) {
+					e.target.style.backgroundColor = currentColour;
+				}
 			});
 		}
 
@@ -34,12 +39,20 @@ function initialiseGrid(gridDimensions) {
 			gridContainer.style.border = "2px solid black";
 		});
 	}
+
+	document.addEventListener("mousedown", () => {
+		isMouseDown = true;
+	});
+
+	document.addEventListener("mouseup", () => {
+		isMouseDown = false;
+	});
 }
 
 function addButtonEventListeners() {
-	gridSizeButton = document.querySelector(".grid-size");
-	resetButton = document.querySelector(".reset");
-	changeColourButton = document.querySelector(".change-colour");
+	const gridSizeButton = document.querySelector(".grid-size");
+	const resetButton = document.querySelector(".reset");
+	const changeColourButton = document.querySelector(".change-colour");
 	eraserButton = document.querySelector(".eraser");
 
 	gridSizeButton.addEventListener("click", () => {
