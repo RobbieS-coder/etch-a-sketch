@@ -17,7 +17,12 @@ function initialiseGrid(gridDimensions) {
 			const tile = document.createElement("div");
 			tile.classList.add("tile");
 			row.appendChild(tile);
-			tile.addEventListener("mouseenter", (e) => {
+
+			tile.addEventListener("mousedown", (e) => {
+				e.preventDefault();
+			});
+
+			tile.addEventListener("mousemove", (e) => {
 				if (isMouseDown) {
 					e.target.style.backgroundColor = currentColour;
 				}
@@ -127,9 +132,9 @@ function testDimensionValidity(newDimension) {
 }
 
 function testColourValidity(newColour) {
-	const span = document.createElement("span");
-	span.style.color = newColour;
-	return span.style.color !== "";
+	const div = document.createElement("div")
+	div.style.color = newColour;
+	return div.style.color !== "";
 }
 
 function resetGrid() {
