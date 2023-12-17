@@ -19,6 +19,7 @@ function initialiseGrid(gridDimensions) {
 			row.appendChild(tile);
 
 			tile.addEventListener("mousedown", (e) => {
+				e.target.style.backgroundColor = currentColour;
 				e.preventDefault();
 			});
 
